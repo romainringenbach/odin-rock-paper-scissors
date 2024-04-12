@@ -69,3 +69,25 @@ function playRound()
     }
     return result;
 }
+
+function playGame(numberOfRounds=5)
+{
+    let playerScore = 0;
+    for (let index = 0; index < numberOfRounds; index++) {
+        let roundResult = playRound();
+        if(roundResult != null){
+            playerScore += roundResult;
+        } else { // Player did enter quit when prompted for a choice
+            console.log("You quit... Too afraid of losing to the computer huh?")
+            return; 
+        }
+    }
+
+    if(playerScore > 0){
+        console.log("You win this game!");
+    } else if(playerScore < 0){
+        console.log("Game over!");
+    } else {
+        console.log("No winner or loser for this game!");
+    }
+}
