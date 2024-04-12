@@ -27,7 +27,7 @@ The game is played through the javascript console of the web browser:
 - The input system is case-insensitive and will have to handle wrong inputs
 - The player can quit at any moment by entering *quit* when prompted for a choice.
 
-The computer choice will be random.
+The computer's choice will be random.
 
 ## Problem resolution
 
