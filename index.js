@@ -22,3 +22,27 @@ function askThePlayer()
 
     return choice;
 }
+
+function getIndexOf(choice)
+{
+    return choices.findIndex((element) => element === choice);
+}
+
+function getNextOf(index)
+{
+    let nextIndex = index+1;
+    if(nextIndex >= choices.length)
+        nextIndex = 0;
+
+    return choices[nextIndex];
+}
+
+function compareChoice(a,b)
+{
+    let result = 0;
+    if(a !== b){
+        result = getNextOf(getIndexOf(a)) === b ? 1 : -1;
+    } 
+    
+    return result;
+}
