@@ -9,13 +9,13 @@ function askThePlayer()
 {
     let choicesAsString = JSON.stringify(choices);
     let isValid = false;
-    let choice = "";
+    let choice = null;
 
     while (!isValid){
         choice = prompt(`Please choose from ${choicesAsString} or quit by entering "quit"`);
         choice = choice.toLowerCase();
         if(choice === "quit")
-            return "";
+            return null;
     
         isValid = choices.find((element) => element === choice);
     }
@@ -41,8 +41,31 @@ function compareChoice(a,b)
 {
     let result = 0;
     if(a !== b){
-        result = getNextOf(getIndexOf(a)) === b ? 1 : -1;
+        result = getNextOf(getIndexOf(a)) === b ? 1 : -1; // If b is next of a, a beats b, if not, a is next of b, b beats a
     } 
     
+    return result;
+}
+
+function playRound()
+{
+    let computerChoice = getComputerChoice();
+    let playerChoice = askThePlayer();
+    let result = null;
+
+    if(playerChoice){ // check player didn't quit
+        result = compareChoice(playerChoice,computerChoice);
+        switch (result) {
+            case 1:
+                console.log("You win !",playerChoice,"beats",computerChoice);
+                break;
+            case -1:
+                console.log("You lose !",computerChoice,"beats",playerChoice);
+                break;
+            default:
+                console.log("No winner or loser! You both play",computerChoice);
+                break;
+        }
+    }
     return result;
 }
