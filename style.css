@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container.vertical {
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+}
+
+.play-button {
+    width: 200px;
+    aspect-ratio: 1/1;
+}
+
+#reset-button {
+    align-self: flex-end;
+}
