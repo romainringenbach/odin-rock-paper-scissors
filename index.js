@@ -1,26 +1,10 @@
 const choices = ["rock","scissors","paper"];
+let playerScore = 0;
+let computerScore = 0;
 
 function getComputerChoice()
 {
     return choices[Math.floor(Math.random()*3)];
-}
-
-function askThePlayer()
-{
-    let choicesAsString = JSON.stringify(choices);
-    let isValid = false;
-    let choice = null;
-
-    while (!isValid){
-        choice = prompt(`Please choose from ${choicesAsString} or quit by entering "quit"`);
-        choice = choice.toLowerCase();
-        if(choice === "quit")
-            return null;
-    
-        isValid = choices.find((element) => element === choice);
-    }
-
-    return choice;
 }
 
 function getIndexOf(choice)
@@ -47,47 +31,46 @@ function compareChoice(a,b)
     return result;
 }
 
-function playRound()
+function playRound(playerChoice)
 {
     let computerChoice = getComputerChoice();
-    let playerChoice = askThePlayer();
-    let result = null;
+    let result = compareChoice(playerChoice,computerChoice);
 
-    if(playerChoice){ // check player didn't quit
-        result = compareChoice(playerChoice,computerChoice);
-        switch (result) {
-            case 1:
-                console.log("You win !",playerChoice,"beats",computerChoice);
-                break;
-            case -1:
-                console.log("You lose !",computerChoice,"beats",playerChoice);
-                break;
-            default:
-                console.log("No winner or loser! You both play",computerChoice);
-                break;
-        }
+    switch (result) {
+        case 1:
+            playerScore += 1;
+            break;
+        case -1:
+            computerScore += 1;
+            break;
+        default:
+            break;
     }
-    return result;
+
+    updateUiScore();
 }
 
-function playGame(numberOfRounds=5)
-{
-    let playerScore = 0;
-    for (let index = 0; index < numberOfRounds; index++) {
-        let roundResult = playRound();
-        if(roundResult != null){
-            playerScore += roundResult;
-        } else { // Player did enter quit when prompted for a choice
-            console.log("You quit... Too afraid of losing to the computer huh?")
-            return; 
-        }
-    }
+function updateUiScore(){
+    const playerScoreElement = document.querySelector("#player-score");
+    playerScoreElement.textContent = playerScore;
 
-    if(playerScore > 0){
-        console.log("You win this game!");
-    } else if(playerScore < 0){
-        console.log("Game over!");
-    } else {
-        console.log("No winner or loser for this game!");
-    }
+    const computerScoreElement = document.querySelector("#computer-score");
+    computerScoreElement.textContent = computerScore;
 }
+
+const playButtons = document.querySelectorAll(".play-button");
+
+playButtons.forEach((button) => {
+    // and for each one we add a 'click' listener
+    button.addEventListener("click", (event) => {
+        playRound(event.target.textContent.toLowerCase())
+    });
+  });
+
+const resetButton = document.querySelector("#reset-button");
+
+resetButton.addEventListener("click", () => {
+    playerScore = 0;
+    computerScore = 0;
+    updateUiScore();
+});
