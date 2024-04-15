@@ -35,19 +35,22 @@ function playRound(playerChoice)
 {
     let computerChoice = getComputerChoice();
     let result = compareChoice(playerChoice,computerChoice);
+    let message = `No winner or loser! You both play ${playerChoice}`;
 
     switch (result) {
         case 1:
             playerScore += 1;
+            message = `You win ! ${playerChoice} beats ${computerChoice}`;
             break;
         case -1:
             computerScore += 1;
+            message = `You lose ! ${computerChoice} beats ${playerChoice}`;
             break;
         default:
             break;
     }
-
     updateUiScore();
+    alert(message);
 }
 
 function updateUiScore(){
@@ -63,7 +66,7 @@ const playButtons = document.querySelectorAll(".play-button");
 playButtons.forEach((button) => {
     // and for each one we add a 'click' listener
     button.addEventListener("click", (event) => {
-        playRound(event.target.textContent.toLowerCase())
+        playRound(event.target.textContent.toLowerCase().trim())
     });
   });
 
@@ -73,4 +76,5 @@ resetButton.addEventListener("click", () => {
     playerScore = 0;
     computerScore = 0;
     updateUiScore();
+    alert("You quit... Too afraid of losing to the computer huh?");
 });
