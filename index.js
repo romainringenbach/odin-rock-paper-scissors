@@ -51,6 +51,14 @@ function playRound(playerChoice)
     }
     updateUiScore();
     alert(message);
+
+    if(playerScore === 5){
+        alert("You win this game!");
+        reset();
+    } else if(computerScore === 5){
+        alert("Game over!");
+        reset();
+    }
 }
 
 function updateUiScore(){
@@ -59,6 +67,12 @@ function updateUiScore(){
 
     const computerScoreElement = document.querySelector("#computer-score");
     computerScoreElement.textContent = computerScore;
+}
+
+function reset(){
+    playerScore = 0;
+    computerScore = 0;
+    updateUiScore();
 }
 
 const playButtons = document.querySelectorAll(".play-button");
@@ -73,8 +87,6 @@ playButtons.forEach((button) => {
 const resetButton = document.querySelector("#reset-button");
 
 resetButton.addEventListener("click", () => {
-    playerScore = 0;
-    computerScore = 0;
-    updateUiScore();
+    reset();
     alert("You quit... Too afraid of losing to the computer huh?");
 });
