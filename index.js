@@ -31,6 +31,13 @@ function compareChoice(a,b)
     return result;
 }
 
+// Make the alert appear after the html was updated
+function deferAlert(message){
+    setTimeout(function() {
+        alert(message);
+    },0);
+}
+
 function playRound(playerChoice)
 {
     let computerChoice = getComputerChoice();
@@ -50,13 +57,13 @@ function playRound(playerChoice)
             break;
     }
     updateUiScore();
-    alert(message);
+    deferAlert(message);
 
     if(playerScore === 5){
-        alert("You win this game!");
+        deferAlert("You win this game!");
         reset();
     } else if(computerScore === 5){
-        alert("Game over!");
+        deferAlert("Game over!");
         reset();
     }
 }
@@ -88,5 +95,5 @@ const resetButton = document.querySelector("#reset-button");
 
 resetButton.addEventListener("click", () => {
     reset();
-    alert("You quit... Too afraid of losing to the computer huh?");
+    deferAlert("You quit... Too afraid of losing to the computer huh?");
 });
