@@ -1,7 +1,5 @@
 # Odin - Rock Paper Scissors
 
-A javascript CLI video game.
-
 ## Introduction
 This student project attends to check a few points:
 - Problem-solving skills
